@@ -1,0 +1,35 @@
+<!DOCTYPE hibernate-configuration PUBLIC  
+   "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+   "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Database Connection Settings -->
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/indew</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root12345</property>
+
+		<!-- Hibernate Dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+		<!-- Show SQL Queries in Console (For Debugging) -->
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+
+		<!-- Hibernate Connection Pool (Optional) -->
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+
+		<!-- Enable Automatic Table Creation (Use cautiously) -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<!-- Mapping Entity Classes -->
+		<mapping class="in.indew.harshit.bean.Note" />
+		<mapping class="in.indew.harshit.bean.User" />
+
+	</session-factory>
+</hibernate-configuration>
