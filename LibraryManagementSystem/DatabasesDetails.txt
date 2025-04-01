@@ -1,0 +1,50 @@
++++++++++++++ Install the necessary dependencies ++++++++++++++
+npm install express sequelize mysql2
+
+
+
+++++++++++++++++ TABLES ++++++++++++++++++++
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL
+);
+
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    isbn VARCHAR(20) UNIQUE NOT NULL,
+    available BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE borrow_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    borrow_date DATE DEFAULT CURDATE(),
+    return_date DATE NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+
+
+++++++++++++++++ INSERT QUERY ++++++++++++++++++++
+INSERT INTO users (name, email, phone) VALUES
+('Alice Johnson', 'alice@example.com', '1234567890'),
+('Bob Smith', 'bob@example.com', '9876543210'),
+('Charlie Brown', 'charlie@example.com', '5556667777');
+
+INSERT INTO books (title, author, isbn, available) VALUES
+('The Great Gatsby', 'F. Scott Fitzgerald', '978-0743273565', TRUE),
+('1984', 'George Orwell', '978-0451524935', TRUE),
+('To Kill a Mockingbird', 'Harper Lee', '978-0061120084', TRUE);
+
+INSERT INTO borrow_records (user_id, book_id, borrow_date) VALUES
+(1, 2, '2024-03-01'),  -- Alice borrowed '1984'
+(2, 3, '2024-03-05'),  -- Bob borrowed 'To Kill a Mockingbird'
+(3, 1, '2024-03-10');  -- Charlie borrowed 'The Great Gatsby'
+
+
+
